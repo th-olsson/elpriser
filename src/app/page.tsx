@@ -28,7 +28,7 @@ export default function Home() {
   }
 
   return (
-    <main className="container p-8 mx-auto max-w-4xl">
+    <main className="container px-4 py-8 mx-auto max-w-4xl">
       <h1 className="text-4xl font-bold">Dagens elpriser</h1>
       <div className=" flex flex-col space-y-6 py-6">
         {currentHour && (
