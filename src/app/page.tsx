@@ -1,7 +1,7 @@
 import { ZoneSelector } from "@/components/ZoneSelector";
 import { SpotPriceTable } from "@/components/SpotPriceTable";
 import { StatCard } from "@/components/StatCard";
-import { Card } from "@/components/ui/card";
+import { Card, CardTitle } from "@/components/ui/card";
 import { data } from "@/example";
 import { displayPrice, displayTime } from "@/utils";
 import dayjs from "dayjs";
@@ -28,28 +28,29 @@ export default function Home() {
   }
 
   return (
-    <main className="container px-4 py-8 mx-auto max-w-4xl">
-      <h1 className="text-4xl font-bold">Dagens elpriser</h1>
-      <div className=" flex flex-col space-y-6 py-6">
+    <main className="container px-6 py-10 mx-auto max-w-2xl">
+      <h1 className="text-4xl font-extrabold ">Dagens elpriser</h1>
+      <div className=" flex flex-col space-y-6 py-8">
         {currentHour && (
-          <Card className="p-4 col-span-4 flex  justify-between">
-            <p>
-              Just nu:
-              <span
-                className={`text-2xl font-bold ${getCurrentColor(
-                  currentHour.SEK_per_kWh,
-                  averagePrice
-                )}`}
-              >
-                {" "}
-                {displayPrice(currentHour.SEK_per_kWh, true)}{" "}
-              </span>
-              öre/kWh
-            </p>
+          <Card className="px-4 py-4 flex justify-between items-center">
+            <div>
+              <CardTitle className="text-lg font-semibold">Just nu</CardTitle>
+              <div className="text-2xl">
+                <span
+                  className={`text-2xl font-bold ${getCurrentColor(
+                    currentHour.SEK_per_kWh,
+                    averagePrice
+                  )}`}
+                >
+                  {displayPrice(currentHour.SEK_per_kWh, true)}
+                </span>
+                <span className=" text-lg"> öre/kWh</span>
+              </div>
+            </div>
             <ZoneSelector />
           </Card>
         )}
-        <section className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+        <section className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {lowestHour && (
             <StatCard
               label="Lägst"

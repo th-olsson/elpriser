@@ -18,7 +18,7 @@ export function ZoneSelector() {
 
   return (
     <Select value={value} onValueChange={(v: Zones) => setValue(v)}>
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger className="w-[160px]">
         <SelectValue placeholder="Välj elområde" />
       </SelectTrigger>
       <SelectContent>
