@@ -169,4 +169,4 @@ export const data = [
   },
 ];
 
-export type Hour = typeof data;
+export type DayPrices = typeof data;

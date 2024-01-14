@@ -9,15 +9,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useState } from "react";
-
-type Zones = "SE1" | "SE2" | "SE3" | "SE4";
+import { DataContext, Zone } from "@/context/data-provider";
+import { useContext, useState } from "react";
 
 export function ZoneSelector() {
-  const [value, setValue] = useState<Zones>("SE3");
+  const { zone, setZone } = useContext(DataContext);
 
   return (
-    <Select value={value} onValueChange={(v: Zones) => setValue(v)}>
+    <Select value={zone || "SE3"} onValueChange={(v: Zone) => setZone(v)}>
       <SelectTrigger className="w-[160px]">
         <SelectValue placeholder="Välj elområde" />
       </SelectTrigger>

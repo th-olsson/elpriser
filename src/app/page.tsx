@@ -1,14 +1,20 @@
+// TODO: Make server component instead
+"use client";
+
 import { ZoneSelector } from "@/components/ZoneSelector";
 import { SpotPriceTable } from "@/components/SpotPriceTable";
 import { StatCard } from "@/components/StatCard";
 import { Card, CardTitle } from "@/components/ui/card";
-import { data } from "@/example";
 import { displayPrice, displayTime } from "@/utils";
 import dayjs from "dayjs";
-import { ArrowDown, ArrowUp } from "lucide-react";
+import { ArrowDown, ArrowUp, Loader2 } from "lucide-react";
 import { TbTilde } from "react-icons/tb";
+import { useContext } from "react";
+import { DataContext } from "@/context/data-provider";
 
 export default function Home() {
+  const { data } = useContext(DataContext);
+
   const prices = data.map(({ SEK_per_kWh }) => SEK_per_kWh);
   const totalHours = data.length;
   const totalPrice = prices.reduce((acc, v) => acc + v, 0);
@@ -29,66 +35,73 @@ export default function Home() {
 
   return (
     <main className="container px-6 py-10 mx-auto max-w-2xl">
-      <h1 className="text-4xl font-extrabold ">Dagens elpriser</h1>
-      <div className=" flex flex-col space-y-6 py-8">
-        {currentHour && (
-          <Card className="px-4 py-4 flex justify-between items-center">
-            <div>
-              <CardTitle className="text-lg font-semibold">Just nu</CardTitle>
-              <div className="text-2xl">
-                <span
-                  className={`text-2xl font-bold ${getCurrentColor(
-                    currentHour.SEK_per_kWh,
-                    averagePrice
-                  )}`}
-                >
-                  {displayPrice(currentHour.SEK_per_kWh, true)}
-                </span>
-                <span className=" text-lg"> öre/kWh</span>
+      <h1 className="text-4xl font-extrabold">Dagens elpriser</h1>
+      {data.length < 1 ? (
+        <div className="flex items-center py-8">
+          <Loader2 className="animate-spin mr-2 h-4 w-4" />
+          Hämtar data..
+        </div>
+      ) : (
+        <div className=" flex flex-col space-y-6 py-8">
+          {currentHour && (
+            <Card className="px-4 py-4 flex justify-between items-center">
+              <div>
+                <CardTitle className="text-lg font-semibold">Just nu</CardTitle>
+                <div className="text-2xl">
+                  <span
+                    className={`text-2xl font-bold ${getCurrentColor(
+                      currentHour.SEK_per_kWh,
+                      averagePrice
+                    )}`}
+                  >
+                    {displayPrice(currentHour.SEK_per_kWh, true)}
+                  </span>
+                  <span className=" text-lg"> öre/kWh</span>
+                </div>
               </div>
-            </div>
-            <ZoneSelector />
-          </Card>
-        )}
-        <section className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-          {lowestHour && (
-            <StatCard
-              label="Lägst"
-              value={displayPrice(lowestHour.SEK_per_kWh, true)}
-              time={`${displayTime(
-                lowestHour.time_start,
-                lowestHour.time_end
-              )}`}
-              Icon={ArrowDown}
-              variant="lowest"
-            />
+              <ZoneSelector />
+            </Card>
           )}
+          <section className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            {lowestHour && (
+              <StatCard
+                label="Lägst"
+                value={displayPrice(lowestHour.SEK_per_kWh, true)}
+                time={`${displayTime(
+                  lowestHour.time_start,
+                  lowestHour.time_end
+                )}`}
+                Icon={ArrowDown}
+                variant="lowest"
+              />
+            )}
 
-          {highestHour && (
+            {highestHour && (
+              <StatCard
+                label="Högst"
+                value={displayPrice(highestHour.SEK_per_kWh, true)}
+                time={`${displayTime(
+                  highestHour.time_start,
+                  highestHour.time_end
+                )}`}
+                Icon={ArrowUp}
+                variant="highest"
+              />
+            )}
             <StatCard
-              label="Högst"
-              value={displayPrice(highestHour.SEK_per_kWh, true)}
-              time={`${displayTime(
-                highestHour.time_start,
-                highestHour.time_end
-              )}`}
-              Icon={ArrowUp}
-              variant="highest"
+              label="Genomsnitt"
+              value={`~ ${displayPrice(averagePrice, true)}`}
+              Icon={TbTilde}
+              variant="average"
             />
-          )}
-          <StatCard
-            label="Genomsnitt"
-            value={`~ ${displayPrice(averagePrice, true)}`}
-            Icon={TbTilde}
-            variant="average"
-          />
-        </section>
-        <section>
-          <Card className="pb-2">
-            <SpotPriceTable data={data} />
-          </Card>
-        </section>
-      </div>
+          </section>
+          <section>
+            <Card className="pb-2">
+              <SpotPriceTable data={data} />
+            </Card>
+          </section>
+        </div>
+      )}
     </main>
   );
 }
