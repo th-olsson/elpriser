@@ -1,6 +1,5 @@
 "use client";
 
-import type { Hour } from "@/example";
 import {
   Table,
   TableBody,
@@ -12,9 +11,10 @@ import {
 } from "@/components/ui/table";
 import dayjs from "dayjs";
 import { displayPrice, displayTime } from "@/utils";
+import { DayPrices } from "@/example";
 
 type Props = {
-  data: Hour;
+  data: DayPrices;
 };
 
 export function SpotPriceTable({ data }: Props) {
