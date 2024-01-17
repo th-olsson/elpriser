@@ -11,6 +11,7 @@ import { ArrowDown, ArrowUp, Loader2 } from "lucide-react";
 import { TbTilde } from "react-icons/tb";
 import { useContext } from "react";
 import { DataContext } from "@/context/data-provider";
+import Chart from "@/components/Chart";
 
 export default function Home() {
   const { data } = useContext(DataContext);
@@ -34,15 +35,15 @@ export default function Home() {
   }
 
   return (
-    <main className="container px-6 py-10 mx-auto max-w-2xl">
-      <h1 className="text-4xl font-extrabold">Dagens elpriser</h1>
+    <main className="container px-6 py-8 mx-auto max-w-2xl">
+      <h1 className="text-3xl font-extrabold">Dagens elpriser</h1>
       {data.length < 1 ? (
-        <div className="flex items-center py-8">
+        <div className="flex items-center py-6">
           <Loader2 className="animate-spin mr-2 h-4 w-4" />
           Hämtar data..
         </div>
       ) : (
-        <div className=" flex flex-col space-y-6 py-8">
+        <div className=" flex flex-col space-y-4 py-6">
           {currentHour && (
             <Card className="px-4 py-4 flex justify-between items-center">
               <div>
@@ -62,7 +63,7 @@ export default function Home() {
               <ZoneSelector />
             </Card>
           )}
-          <section className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+          <section className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {lowestHour && (
               <StatCard
                 label="Lägst"
@@ -95,6 +96,10 @@ export default function Home() {
               variant="average"
             />
           </section>
+          <Card className="p-4">
+            <Chart data={data} />
+          </Card>
+
           <section>
             <Card className="pb-2">
               <SpotPriceTable data={data} />
