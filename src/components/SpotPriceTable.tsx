@@ -95,6 +95,15 @@ export function SpotPriceTable({ data }: Props) {
             </TableBody>
           </Table>
         </Card>
+        <CollapsibleTrigger asChild className="flex justify-center w-full">
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {!isOpen ? "Visa tabell" : "Dölj tabell"}
+          </Button>
+        </CollapsibleTrigger>
       </CollapsibleContent>
     </Collapsible>
   );
