@@ -36,7 +36,7 @@ export default function Home() {
 
   return (
     <main className="container px-6 py-8 mx-auto max-w-2xl">
-      <h1 className="text-3xl font-extrabold">Dagens elpriser</h1>
+      <h1 className="text-3xl font-extrabold text-center">Dagens elpriser</h1>
       {data.length < 1 ? (
         <div className="flex items-center py-6">
           <Loader2 className="animate-spin mr-2 h-4 w-4" />
@@ -96,15 +96,10 @@ export default function Home() {
               variant="average"
             />
           </section>
-          <Card className="p-4">
+          <Card className="p-4 space-y-2">
             <Chart data={data} />
+            <SpotPriceTable data={data} />
           </Card>
-
-          <section>
-            <Card className="pb-2">
-              <SpotPriceTable data={data} />
-            </Card>
-          </section>
         </div>
       )}
     </main>

@@ -32,7 +32,7 @@ export function StatCard({ label, value, time, Icon, variant }: Props) {
   }
 
   return (
-    <Card className={`shadow-none  hover:shadow-sm ${card}`}>
+    <Card className={`${card}`}>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 px-4 py-2 pb-0">
         <CardTitle className="text-sm font-medium text-foreground">
           {label}
