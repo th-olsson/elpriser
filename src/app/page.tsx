@@ -12,6 +12,7 @@ import { TbTilde } from "react-icons/tb";
 import { useContext } from "react";
 import { DataContext } from "@/context/data-provider";
 import Chart from "@/components/Chart";
+// import { data } from "@/example";
 
 export default function Home() {
   const { data } = useContext(DataContext);
@@ -38,7 +39,7 @@ export default function Home() {
     <main className="container px-6 py-8 mx-auto max-w-2xl">
       <h1 className="text-3xl font-extrabold text-center">Dagens elpriser</h1>
       {data.length < 1 ? (
-        <div className="flex items-center py-6">
+        <div className="flex items-center py-6 justify-center">
           <Loader2 className="animate-spin mr-2 h-4 w-4" />
           Hämtar data..
         </div>
