@@ -38,7 +38,7 @@ export function SpotPriceTable({ data }: Props) {
   const hourNow = data.find((v) => dayjs().isSame(v.time_start, "hour"));
 
   return (
-    <Collapsible open={isOpen} onOpenChange={setIsOpen} className="space-y-2">
+    <Collapsible open={isOpen} onOpenChange={setIsOpen}>
       <CollapsibleTrigger asChild className="flex justify-center w-full">
         <Button
           variant="secondary"
@@ -48,7 +48,7 @@ export function SpotPriceTable({ data }: Props) {
           {!isOpen ? "Visa tabell" : "Dölj tabell"}
         </Button>
       </CollapsibleTrigger>
-      <CollapsibleContent>
+      <CollapsibleContent className="mt-2">
         <Card className="pb-2">
           <Table>
             <TableCaption className="caption-bottom">
@@ -95,7 +95,7 @@ export function SpotPriceTable({ data }: Props) {
             </TableBody>
           </Table>
         </Card>
-        <CollapsibleTrigger asChild className="flex justify-center w-full">
+        <CollapsibleTrigger asChild className="flex justify-center w-full mt-2">
           <Button
             variant="secondary"
             size="sm"
