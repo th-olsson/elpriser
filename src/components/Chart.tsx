@@ -13,7 +13,7 @@ import {
 } from "recharts";
 import { Card } from "./ui/card";
 import { CartesianGrid } from "recharts";
-import { DayPrices } from "@/example";
+import type { DayPrices } from "@/types";
 
 type Props = {
   data: DayPrices;

@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/table";
 import dayjs from "dayjs";
 import { displayPrice, displayTime } from "@/utils";
-import { DayPrices } from "@/example";
+import type { DayPrices } from "@/types";
 import {
   Collapsible,
   CollapsibleContent,

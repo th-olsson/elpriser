@@ -6,7 +6,7 @@ import SE1 from "@/data/SE1.json";
 import SE2 from "@/data/SE2.json";
 import SE3 from "@/data/SE3.json";
 import SE4 from "@/data/SE4.json";
-import { DayPrices } from "@/example";
+import type { DayPrices } from "@/types";
 
 export type Zone = "SE1" | "SE2" | "SE3" | "SE4";
 
