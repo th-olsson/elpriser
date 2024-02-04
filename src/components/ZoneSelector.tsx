@@ -10,14 +10,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { DataContext, Zone } from "@/context/data-provider";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 
 export function ZoneSelector() {
   const { zone, setZone } = useContext(DataContext);
 
   return (
     <Select value={zone || "SE3"} onValueChange={(v: Zone) => setZone(v)}>
-      <SelectTrigger className="w-[160px]">
+      <SelectTrigger>
         <SelectValue placeholder="Välj elområde" />
       </SelectTrigger>
       <SelectContent>

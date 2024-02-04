@@ -23,6 +23,7 @@ export const DataContext = createContext<Context>({
 });
 
 export const DataProvider = ({ children }: PropsWithChildren<{}>) => {
+  // TODO: Use cookies/localstorage for preferred zone
   const [zone, setZone] = useState<Zone | undefined>("SE3");
   const [data, setData] = useState<DayPrices>(SE3);
 

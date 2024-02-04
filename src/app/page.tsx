@@ -1,18 +1,19 @@
 // TODO: Make server component instead
+// TODO: Make app static and increment it on demand on updateData
 "use client";
 
 import { ZoneSelector } from "@/components/ZoneSelector";
 import { SpotPriceTable } from "@/components/SpotPriceTable";
-import { StatCard } from "@/components/StatCard";
-import { Card, CardTitle } from "@/components/ui/card";
+import { MiniStat } from "@/components/MiniStat";
+import { Card } from "@/components/ui/card";
 import { displayPrice, displayTime } from "@/utils";
 import dayjs from "dayjs";
 import { ArrowDown, ArrowUp, Loader2 } from "lucide-react";
 import { TbTilde } from "react-icons/tb";
+import Chart from "@/components/Chart";
+
 import { useContext } from "react";
 import { DataContext } from "@/context/data-provider";
-import Chart from "@/components/Chart";
-// import { data } from "@/example";
 
 export default function Home() {
   const { data } = useContext(DataContext);
@@ -28,80 +29,74 @@ export default function Home() {
   const lowestHour = data.find((v) => v.SEK_per_kWh === lowestPrice);
   const highestHour = data.find((v) => v.SEK_per_kWh === highestPrice);
 
-  function getCurrentColor(price: number, averagePrice: number) {
-    if (price < averagePrice) {
-      return `text-emerald-400`;
-    }
-    return `text-red-400`;
-  }
-
   return (
     <main className="container px-6 py-8 mx-auto max-w-2xl">
-      <h1 className="text-3xl font-extrabold text-center">Dagens elpriser</h1>
       {data.length < 1 ? (
         <div className="flex items-center py-6 justify-center">
           <Loader2 className="animate-spin mr-2 h-4 w-4" />
           Hämtar data..
         </div>
       ) : (
-        <div className=" flex flex-col space-y-4 py-6">
-          {currentHour && (
-            <Card className="px-4 py-4 flex justify-between items-center">
-              <div>
-                <CardTitle className="text-lg font-semibold">Just nu</CardTitle>
-                <div className="text-2xl">
-                  <span
-                    className={`text-2xl font-bold ${getCurrentColor(
-                      currentHour.SEK_per_kWh,
-                      averagePrice
-                    )}`}
-                  >
-                    {displayPrice(currentHour.SEK_per_kWh, true)}
-                  </span>
-                  <span className=" text-lg"> öre/kWh</span>
+        <section className="space-y-4">
+          <div className="flex flex-col justify-between">
+            <div className="flex flex-col gap-4 sm:flex-row justify-between items-start">
+              <h2 className="text-2xl font-extrabold text-left">
+                Dagens elpriser
+              </h2>
+              <div className="w-full sm:w-fit">
+                <ZoneSelector />
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col space-y-2">
+            <Card className="p-4 space-y-2">
+              <div className="flex justify-between items-end pb-4">
+                <div>
+                  Nu{" "}
+                  <span className="text-2xl font-bold">
+                    {displayPrice(currentHour!.SEK_per_kWh, true)}
+                  </span>{" "}
+                  <span className="font-bold">öre/kWh</span>
+                </div>
+                <div className="flex justify-evenly gap-2">
+                  {lowestHour && (
+                    <MiniStat
+                      label="Lägst"
+                      value={displayPrice(lowestHour.SEK_per_kWh, true)}
+                      time={`${displayTime(
+                        lowestHour.time_start,
+                        lowestHour.time_end
+                      )}`}
+                      Icon={ArrowDown}
+                      variant="lowest"
+                    />
+                  )}
+
+                  {highestHour && (
+                    <MiniStat
+                      label="Högst"
+                      value={displayPrice(highestHour.SEK_per_kWh, true)}
+                      time={`${displayTime(
+                        highestHour.time_start,
+                        highestHour.time_end
+                      )}`}
+                      Icon={ArrowUp}
+                      variant="highest"
+                    />
+                  )}
+                  <MiniStat
+                    label="Genomsnitt"
+                    value={`${displayPrice(averagePrice, true)}`}
+                    Icon={TbTilde}
+                    variant="average"
+                  />
                 </div>
               </div>
-              <ZoneSelector />
+              <Chart data={data} />
+              <SpotPriceTable data={data} />
             </Card>
-          )}
-          <section className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-            {lowestHour && (
-              <StatCard
-                label="Lägst"
-                value={displayPrice(lowestHour.SEK_per_kWh, true)}
-                time={`${displayTime(
-                  lowestHour.time_start,
-                  lowestHour.time_end
-                )}`}
-                Icon={ArrowDown}
-                variant="lowest"
-              />
-            )}
-
-            {highestHour && (
-              <StatCard
-                label="Högst"
-                value={displayPrice(highestHour.SEK_per_kWh, true)}
-                time={`${displayTime(
-                  highestHour.time_start,
-                  highestHour.time_end
-                )}`}
-                Icon={ArrowUp}
-                variant="highest"
-              />
-            )}
-            <StatCard
-              label="Genomsnitt"
-              value={`~ ${displayPrice(averagePrice, true)}`}
-              Icon={TbTilde}
-              variant="average"
-            />
-          </section>
-          <Card className="p-4 space-y-2">
-            <Chart data={data} />
-            <SpotPriceTable data={data} />
-          </Card>
-        </div>
+          </div>
+        </section>
       )}
     </main>
   );
