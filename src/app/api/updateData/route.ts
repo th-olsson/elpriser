@@ -21,13 +21,11 @@ function updatefile(data: JSON, area: "SE1" | "SE2" | "SE3" | "SE4") {
 }
 
 /**
- * @description Used to update data for todays prices. Ping it with a on start of each day with a cron-job.
- * @requires Requires apiKey in header to authorize updating data.
+ * @description Used to update data for todays prices. Ping it on start of each day with a cron-job.
+ * @requires Requires CRON_SECRET in header to authorize updating data.
  */
 export async function GET() {
-  // Required: apiKey
-  const apiKey = headers().get("apiKey");
-  if (apiKey !== process.env.API_KEY) {
+  if (headers().get("Authorization") !== `Bearer ${process.env.CRON_SECRET}`) {
     return new Response("Unauthorized request", {
       status: 401,
     });
