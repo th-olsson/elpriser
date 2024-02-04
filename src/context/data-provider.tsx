@@ -1,9 +1,12 @@
 "use client";
 
-import { DayPrices } from "@/example";
-import { getData } from "@/utils";
 import { PropsWithChildren, useContext, useEffect, useState } from "react";
 import { createContext } from "react";
+import SE1 from "@/data/SE1.json";
+import SE2 from "@/data/SE2.json";
+import SE3 from "@/data/SE3.json";
+import SE4 from "@/data/SE4.json";
+import { DayPrices } from "@/example";
 
 export type Zone = "SE1" | "SE2" | "SE3" | "SE4";
 
@@ -20,15 +23,26 @@ export const DataContext = createContext<Context>({
 });
 
 export const DataProvider = ({ children }: PropsWithChildren<{}>) => {
-  const [zone, setZone] = useState<Zone | undefined>(undefined);
-  const [data, setData] = useState<DayPrices>([]);
+  const [zone, setZone] = useState<Zone | undefined>("SE3");
+  const [data, setData] = useState<DayPrices>(SE3);
 
   useEffect(() => {
-    async function updateData() {
-      const pricesData = await getData(zone || "SE3");
-      setData(pricesData);
+    switch (zone) {
+      case "SE1":
+        setData(SE1);
+        break;
+      case "SE2":
+        setData(SE2);
+        break;
+      case "SE3":
+        setData(SE3);
+        break;
+      case "SE4":
+        setData(SE4);
+        break;
+      default:
+        break;
     }
-    updateData();
   }, [zone]);
 
   return (
