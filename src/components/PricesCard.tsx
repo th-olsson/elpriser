@@ -3,16 +3,15 @@
 import { displayPrice, displayTime } from "@/utils";
 import { Card } from "./ui/card";
 import { ArrowDown, ArrowUp, Loader2 } from "lucide-react";
-import { DayPrices } from "@/types";
 import dayjs from "dayjs";
 import { MiniStat } from "./MiniStat";
 import { TbTilde } from "react-icons/tb";
 import { Chart } from "./Chart";
 import { SpotPriceTable } from "./SpotPriceTable";
-import { useDailyPrices } from "@/hooks/useDailyPrices";
+import { Areas, useDailyPrices } from "@/hooks/useDailyPrices";
 
 type Props = {
-  areas: { SE1: DayPrices; SE2: DayPrices; SE3: DayPrices; SE4: DayPrices };
+  areas: Areas;
 };
 
 export function PricesCard({ areas }: Props) {
@@ -42,7 +41,6 @@ export function PricesCard({ areas }: Props) {
       <div className="flex justify-between items-end pb-4">
         {currentHour && (
           <div>
-            Nu{" "}
             <span className="text-2xl font-bold">
               {displayPrice(currentHour?.SEK_per_kWh, true)}
             </span>{" "}

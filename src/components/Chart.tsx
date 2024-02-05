@@ -98,7 +98,7 @@ export function Chart({ data }: Props) {
           dataKey="price"
           stroke="hsl(0 0% 64.9%)"
           dot={({ cy, cx, value }: DotProps & { value: number }) => (
-            <svg>
+            <svg key={value}>
               <circle
                 r={currentPrice === value ? 7 : 3}
                 cy={cy}
@@ -108,7 +108,7 @@ export function Chart({ data }: Props) {
             </svg>
           )}
           activeDot={({ cy, cx, value }: DotProps & { value?: number }) => (
-            <svg>
+            <svg key={value}>
               <circle
                 r={currentPrice === value ? 7 : 5}
                 stroke={value! > averagePrice ? "#f87171" : "#34d399"}

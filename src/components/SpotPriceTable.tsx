@@ -71,7 +71,7 @@ export function SpotPriceTable({ data }: Props) {
 
                 return (
                   <TableRow
-                    key={i}
+                    key={time_start}
                     className={`${
                       isNow ? "font-semibold text-foreground" : ""
                     }`}
