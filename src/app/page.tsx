@@ -14,9 +14,7 @@ export default async function Home() {
       <section className="space-y-2">
         <div className="flex flex-col justify-between">
           <div className="flex flex-col gap-4 sm:flex-row justify-between items-start">
-            <h2 className="text-2xl font-extrabold text-left">
-              Dagens elpriser
-            </h2>
+            <h2 className="text-2xl font-extrabold text-left">Elpriset idag</h2>
             <div className="w-full sm:w-fit">
               <AreaSelector />
             </div>
