@@ -1,7 +1,7 @@
 {
   "crons": [
     {
-      "path": "/api/updateData",
+      "path": "/api/revalidate",
       "schedule": "0 0 * * *"
     }
   ]

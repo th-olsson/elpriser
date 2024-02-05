@@ -20,7 +20,7 @@ type Props = {
 };
 
 // TODO: Refactor & optimize
-export default function Chart({ data }: Props) {
+export function Chart({ data }: Props) {
   const totalPrice = data.reduce(
     (acc, { SEK_per_kWh }) => acc + SEK_per_kWh,
     0

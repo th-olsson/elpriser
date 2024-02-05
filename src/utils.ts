@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
-import { Zone } from "./context/data-provider";
+import { Area } from "./context/area-provider";
+import { DayPrices } from "./types";
 
 export function displayPrice(sek: number, hideDecimals?: boolean) {
   // Convert sek to öre and round to 2 decimals
@@ -14,7 +15,7 @@ export function displayTime(start: string, end: string) {
   return `${dayjs(start).format("HH:mm")} - ${dayjs(end).format("HH:mm")}`;
 }
 
-export async function getPriceData(area: Zone): Promise<JSON> {
+export async function fetchDailyPrices(area: Area): Promise<DayPrices> {
   const now = dayjs();
   const year = now.format("YYYY");
   const month = now.format("MM");
@@ -23,7 +24,8 @@ export async function getPriceData(area: Zone): Promise<JSON> {
   const res = await fetch(
     `https://www.elprisetjustnu.se/api/v1/prices/${year}/${month}-${day}_${area}.json`,
     {
-      cache: "no-store",
+      cache: "force-cache",
+      next: { tags: ["daily-prices"] },
     }
   );
 
