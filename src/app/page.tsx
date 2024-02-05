@@ -54,7 +54,7 @@ export default function Home() {
                 <div>
                   Nu{" "}
                   <span className="text-2xl font-bold">
-                    {displayPrice(currentHour!.SEK_per_kWh, true)}
+                    {currentHour && displayPrice(currentHour.SEK_per_kWh, true)}
                   </span>{" "}
                   <span className="font-bold">öre/kWh</span>
                 </div>
