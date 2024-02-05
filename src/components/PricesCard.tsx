@@ -40,11 +40,12 @@ export function PricesCard({ areas }: Props) {
     <Card className="p-4 space-y-2">
       <div className="flex justify-between items-end pb-4">
         {currentHour && (
-          <div>
-            <span className="text-2xl font-bold">
+          <div className="text-md">
+            Nu:{" "}
+            <span className="text-xl font-bold text-foreground">
               {displayPrice(currentHour?.SEK_per_kWh, true)}
             </span>{" "}
-            <span className="font-bold">öre/kWh</span>
+            öre/kWh
           </div>
         )}
         <div className="flex justify-evenly gap-2">
