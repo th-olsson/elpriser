@@ -35,7 +35,9 @@ export function Chart({ data }: Props) {
     };
   });
   const currentHour = data.find((v) => dayjs().isSame(v.time_start, "hour"));
-  const currentPrice = Number((currentHour!.SEK_per_kWh * 100).toFixed(2));
+  const currentPrice = currentHour
+    ? Number((currentHour.SEK_per_kWh * 100).toFixed(2))
+    : undefined;
 
   return (
     <ResponsiveContainer width="100%" height={200}>
