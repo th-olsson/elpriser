@@ -102,7 +102,7 @@ export function Chart({ data }: Props) {
           dot={({ cy, cx, value }: DotProps & { value: number }) => (
             <svg key={value}>
               <circle
-                r={currentPrice === value ? 7 : 3}
+                r={currentPrice === value ? 4 : 2}
                 cy={cy}
                 cx={cx}
                 fill={value! > averagePrice ? "#f87171" : "#34d399"}
@@ -112,7 +112,7 @@ export function Chart({ data }: Props) {
           activeDot={({ cy, cx, value }: DotProps & { value?: number }) => (
             <svg key={value}>
               <circle
-                r={currentPrice === value ? 7 : 5}
+                r={currentPrice === value ? 5 : 3}
                 stroke={value! > averagePrice ? "#f87171" : "#34d399"}
                 stroke-width={2}
                 cy={cy}
